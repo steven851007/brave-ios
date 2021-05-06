@@ -6,6 +6,7 @@ import UIKit
 import Shared
 import Storage
 import BraveShared
+import Data
 
 // MARK: - SearchViewControllerDelegate
 
@@ -420,6 +421,7 @@ class SearchViewController: SiteTableViewController, LoaderListener {
             return
         }
 
+        RecentSearch.addItem(type: .website, text: searchQuery, websiteUrl: url.absoluteString)
         searchDelegate?.searchViewController(self, didSelectURL: url)
     }
 
@@ -475,7 +477,7 @@ class SearchViewController: SiteTableViewController, LoaderListener {
         switch searchSection {
         case .searchSuggestions:
             if let defaultSearchEngine = searchEngines?.defaultEngine() {
-                return String(format: Strings.searchSuggestionFromFormatText, defaultSearchEngine.shortName)
+                return String(format: Strings.searchSuggestionSectionTitleFormat, defaultSearchEngine.shortName)
             }
             return Strings.searchSuggestionsSectionHeader
         case .bookmarksAndHistory: return Strings.searchHistorySectionHeader

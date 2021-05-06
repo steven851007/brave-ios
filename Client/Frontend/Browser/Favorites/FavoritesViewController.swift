@@ -363,7 +363,40 @@ extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewD
             // swiftlint:disable:next force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentSearchCell.identifier, for: indexPath) as! RecentSearchCell
             let recentSearch = recentSearchesFRC.object(at: IndexPath(item: indexPath.item, section: 0))
-            cell.setTitle(recentSearch.text!)
+            guard let searchType = RecentSearchType(rawValue: recentSearch.searchType) else {
+                cell.setTitle(recentSearch.text)
+                return cell
+            }
+            
+            switch searchType {
+            case .text:
+                cell.setTitle(recentSearch.text)
+            case .qrCode:
+                if let text = recentSearch.text {
+                    let title = NSMutableAttributedString(string: "Scanned ",
+                                                          attributes: [.font: UIFont.systemFont(ofSize: 15.0, weight: .semibold)])
+                    title.append(NSAttributedString(string: "\"\(text)\"",
+                                                    attributes: [.font: UIFont.systemFont(ofSize: 15.0)]))
+                    cell.setAttributedTitle(title)
+                } else {
+                    cell.setTitle(recentSearch.text)
+                }
+            case .website:
+                if let text = recentSearch.text,
+                   let websiteUrl = recentSearch.websiteUrl {
+                    let website = URL(string: websiteUrl)?.baseDomain ?? URL(string: websiteUrl)?.host ?? websiteUrl
+                    
+                    let title = NSMutableAttributedString(string: text,
+                                                          attributes: [.font: UIFont.systemFont(ofSize: 15.0)])
+                    title.append(NSAttributedString(string: " on ",
+                                                    attributes: [.font: UIFont.systemFont(ofSize: 15.0, weight: .semibold)]))
+                    title.append(NSAttributedString(string: website,
+                                                    attributes: [.font: UIFont.systemFont(ofSize: 15.0)]))
+                    cell.setAttributedTitle(title)
+                } else {
+                    cell.setTitle(recentSearch.text)
+                }
+            }
             return cell
         }
     }

@@ -42,7 +42,11 @@ class RecentSearchCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setTitle(_ title: String) {
+    func setTitle(_ title: String?) {
         titleLabel.text = title
+    }
+    
+    func setAttributedTitle(_ title: NSAttributedString?) {
+        titleLabel.attributedText = title
     }
 }
