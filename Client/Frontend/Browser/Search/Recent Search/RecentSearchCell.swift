@@ -20,8 +20,9 @@ class RecentSearchCell: UICollectionViewCell {
         $0.font = .systemFont(ofSize: 15.0)
     }
     
-    private let openButton = UIButton().then {
-        $0.setImage(#imageLiteral(resourceName: "recent-search-arrow"), for: .normal)
+    private let openButton = UIImageView().then {
+        $0.image = #imageLiteral(resourceName: "recent-search-arrow")
+        $0.contentMode = .scaleAspectFit
         $0.setContentHuggingPriority(.required, for: .horizontal)
         $0.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
