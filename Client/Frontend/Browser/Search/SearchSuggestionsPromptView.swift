@@ -63,12 +63,12 @@ class SearchSuggestionPromptView: UIView {
         
         enableButton.snp.makeConstraints {
             $0.width.equalTo(disableButton)
-            $0.height.lessThanOrEqualTo(DesignUX.buttonHeight)
+            $0.height.equalTo(DesignUX.buttonHeight)
         }
         
         disableButton.snp.makeConstraints {
             $0.width.equalTo(enableButton)
-            $0.height.lessThanOrEqualTo(DesignUX.buttonHeight)
+            $0.height.equalTo(DesignUX.buttonHeight)
         }
         
         enableButton.addTarget(self, action: #selector(didClickOptInSuggestionsYes), for: .touchUpInside)

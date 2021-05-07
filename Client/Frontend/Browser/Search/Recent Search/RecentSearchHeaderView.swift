@@ -84,6 +84,16 @@ class RecentSearchHeaderView: UICollectionReusableView {
             [titleLabel, spacer, showButton, hideClearButton].forEach({
                 self.hStackView.addArrangedSubview($0)
             })
+            
+            showButton.snp.makeConstraints {
+                $0.width.equalTo(hideClearButton)
+                $0.height.lessThanOrEqualTo(40.0)
+            }
+            
+            hideClearButton.snp.makeConstraints {
+                $0.width.equalTo(showButton)
+                $0.height.lessThanOrEqualTo(40.0)
+            }
         } else {
             [titleLabel, subtitleLabel, hStackView].forEach({
                 self.vStackView.addArrangedSubview($0)
@@ -94,16 +104,16 @@ class RecentSearchHeaderView: UICollectionReusableView {
             [showButton, hideClearButton, spacer].forEach({
                 self.hStackView.addArrangedSubview($0)
             })
-        }
-        
-        showButton.snp.makeConstraints {
-            $0.width.equalTo(hideClearButton)
-            $0.height.lessThanOrEqualTo(40.0)
-        }
-        
-        hideClearButton.snp.makeConstraints {
-            $0.width.equalTo(showButton)
-            $0.height.lessThanOrEqualTo(40.0)
+            
+            showButton.snp.makeConstraints {
+                $0.width.equalTo(hideClearButton)
+                $0.height.equalTo(40.0)
+            }
+            
+            hideClearButton.snp.makeConstraints {
+                $0.width.equalTo(showButton)
+                $0.height.equalTo(40.0)
+            }
         }
     }
     
