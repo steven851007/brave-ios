@@ -9,6 +9,12 @@ import BraveUI
 import Shared
 
 class RecentSearchHeaderView: UICollectionReusableView {
+    private struct DesignUX {
+        static let buttonHeight: CGFloat = 20.0
+        static let paddingX: CGFloat = 15.0
+        static let paddingY: CGFloat = 10.0
+    }
+    
     private var showRecentSearches = false
     
     private let titleLabel = UILabel().then {
@@ -57,20 +63,6 @@ class RecentSearchHeaderView: UICollectionReusableView {
         fatalError()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        if !showRecentSearches {
-            showButton.do {
-                $0.layer.cornerRadius = $0.bounds.height / 2.0
-            }
-            
-            hideClearButton.do {
-                $0.layer.cornerRadius = $0.bounds.height / 2.0
-            }
-        }
-    }
-    
     func resetLayout(showRecentSearches: Bool) {
         self.showRecentSearches = showRecentSearches
         themeViews()
@@ -116,8 +108,15 @@ class RecentSearchHeaderView: UICollectionReusableView {
     }
     
     private func themeViews() {
-        let paddingX: CGFloat = 15.0
-        let paddingY: CGFloat = 10.0
+        let titleEdgeInsets = UIEdgeInsets(top: -DesignUX.paddingY,
+                                           left: -DesignUX.paddingX,
+                                           bottom: -DesignUX.paddingY,
+                                           right: -DesignUX.paddingX)
+        
+        let contentEdgeInsets = UIEdgeInsets(top: DesignUX.paddingY,
+                                             left: DesignUX.paddingX,
+                                             bottom: DesignUX.paddingY,
+                                             right: DesignUX.paddingX)
         
         if showRecentSearches {
             showButton.do {
@@ -149,11 +148,11 @@ class RecentSearchHeaderView: UICollectionReusableView {
                 $0.setTitleColor(.braveBackground, for: .normal)
                 $0.titleLabel?.font = .systemFont(ofSize: 12.0, weight: .semibold)
                 $0.layer.cornerCurve = .continuous
-                $0.layer.cornerRadius = $0.bounds.height / 2.0
+                $0.layer.cornerRadius = DesignUX.buttonHeight
                 $0.layer.borderColor = nil
                 $0.layer.borderWidth = 0.0
-                $0.titleEdgeInsets = UIEdgeInsets(top: -paddingY, left: -paddingX, bottom: -paddingY, right: -paddingX)
-                $0.contentEdgeInsets = UIEdgeInsets(top: paddingY, left: paddingX, bottom: paddingY, right: paddingX)
+                $0.titleEdgeInsets = titleEdgeInsets
+                $0.contentEdgeInsets = contentEdgeInsets
                 $0.backgroundColor = .braveBlurple
             }
             
@@ -162,11 +161,11 @@ class RecentSearchHeaderView: UICollectionReusableView {
                 $0.setTitleColor(.primaryButtonTint, for: .normal)
                 $0.titleLabel?.font = .systemFont(ofSize: 12.0, weight: .semibold)
                 $0.layer.cornerCurve = .continuous
-                $0.layer.cornerRadius = $0.bounds.height / 2.0
+                $0.layer.cornerRadius = DesignUX.buttonHeight
                 $0.layer.borderColor = UIColor.braveLabel.cgColor
                 $0.layer.borderWidth = 1.0
-                $0.titleEdgeInsets = UIEdgeInsets(top: -paddingY, left: -paddingX, bottom: -paddingY, right: -paddingX)
-                $0.contentEdgeInsets = UIEdgeInsets(top: paddingY, left: paddingX, bottom: paddingY, right: paddingX)
+                $0.titleEdgeInsets = titleEdgeInsets
+                $0.contentEdgeInsets = contentEdgeInsets
                 $0.backgroundColor = .clear
             }
         }

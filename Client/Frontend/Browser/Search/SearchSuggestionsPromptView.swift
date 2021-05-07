@@ -40,6 +40,8 @@ class SearchSuggestionPromptView: UIView {
         self.optionSelected = optionSelected
         super.init(frame: .zero)
         
+        backgroundColor = .secondaryBraveBackground
+        
         addSubview(vStackView)
         vStackView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(DesignUX.layoutInsetX)
