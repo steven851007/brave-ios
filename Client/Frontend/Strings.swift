@@ -225,4 +225,7 @@ extension Strings {
     public static let recentShowMore = NSLocalizedString("RecentSearchShowMore", bundle: Bundle.shared, value: "Show more", comment: "Recent Search Show More button")
     public static let recentSearchScanned = NSLocalizedString("RecentSearchScanned", bundle: Bundle.shared, value: "Scanned", comment: "Recent Search Scanned text when a user scans a qr code")
     public static let recentSearchQuickSearchOnWebsite = NSLocalizedString("RecentSearchQuickSearchOnWebsite", bundle: Bundle.shared, value: "on", comment: "Recent Search 'on' text when a user searches 'on' a website")
+    public static let recentSearchSuggestionsTitle = NSLocalizedString("RecentSearchSuggestionsTitle", bundle: Bundle.shared, value: "Search Suggestions", comment: "Recent Search suggestions title when prompting to turn on suggestions")
+    public static let recentSearchEnableSuggestions = NSLocalizedString("RecentSearchEnableSuggestions", bundle: Bundle.shared, value: "Enable", comment: "Recent Search button title to enable suggestions")
+    public static let recentSearchDisableSuggestions = NSLocalizedString("RecentSearchDisableSuggestions", bundle: Bundle.shared, value: "Disable", comment: "Recent Search button title to disable suggestions")
 }
