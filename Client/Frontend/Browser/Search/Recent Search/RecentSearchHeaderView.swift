@@ -10,7 +10,7 @@ import Shared
 
 class RecentSearchHeaderView: UICollectionReusableView {
     private struct DesignUX {
-        static let buttonHeight: CGFloat = 20.0
+        static let buttonHeight: CGFloat = 40.0
         static let paddingX: CGFloat = 15.0
         static let paddingY: CGFloat = 10.0
     }
@@ -87,12 +87,12 @@ class RecentSearchHeaderView: UICollectionReusableView {
             
             showButton.snp.makeConstraints {
                 $0.width.equalTo(hideClearButton)
-                $0.height.lessThanOrEqualTo(40.0)
+                $0.height.lessThanOrEqualTo(DesignUX.buttonHeight)
             }
             
             hideClearButton.snp.makeConstraints {
                 $0.width.equalTo(showButton)
-                $0.height.lessThanOrEqualTo(40.0)
+                $0.height.lessThanOrEqualTo(DesignUX.buttonHeight)
             }
         } else {
             [titleLabel, subtitleLabel, hStackView].forEach({
@@ -107,12 +107,12 @@ class RecentSearchHeaderView: UICollectionReusableView {
             
             showButton.snp.makeConstraints {
                 $0.width.equalTo(hideClearButton)
-                $0.height.equalTo(40.0)
+                $0.height.equalTo(DesignUX.buttonHeight)
             }
             
             hideClearButton.snp.makeConstraints {
                 $0.width.equalTo(showButton)
-                $0.height.equalTo(40.0)
+                $0.height.equalTo(DesignUX.buttonHeight)
             }
         }
     }
@@ -158,7 +158,7 @@ class RecentSearchHeaderView: UICollectionReusableView {
                 $0.setTitleColor(.braveBackground, for: .normal)
                 $0.titleLabel?.font = .systemFont(ofSize: 12.0, weight: .semibold)
                 $0.layer.cornerCurve = .continuous
-                $0.layer.cornerRadius = DesignUX.buttonHeight
+                $0.layer.cornerRadius = DesignUX.buttonHeight / 2.0
                 $0.layer.borderColor = nil
                 $0.layer.borderWidth = 0.0
                 $0.titleEdgeInsets = titleEdgeInsets
@@ -171,7 +171,7 @@ class RecentSearchHeaderView: UICollectionReusableView {
                 $0.setTitleColor(.primaryButtonTint, for: .normal)
                 $0.titleLabel?.font = .systemFont(ofSize: 12.0, weight: .semibold)
                 $0.layer.cornerCurve = .continuous
-                $0.layer.cornerRadius = DesignUX.buttonHeight
+                $0.layer.cornerRadius = DesignUX.buttonHeight / 2.0
                 $0.layer.borderColor = UIColor.braveLabel.cgColor
                 $0.layer.borderWidth = 1.0
                 $0.titleEdgeInsets = titleEdgeInsets

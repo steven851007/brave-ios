@@ -31,8 +31,41 @@ class SearchSuggestionPromptView: UIView {
         $0.spacing = 9.0
     }
     
-    private lazy var enableButton = createButton(title: Strings.recentSearchEnableSuggestions)
-    private lazy var disableButton = createButton(title: Strings.recentSearchDisableSuggestions)
+    private let enableButton = UIButton().then {
+        $0.setTitle(Strings.recentSearchEnableSuggestions, for: .normal)
+        $0.setTitleColor(.braveBackground, for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 12.0, weight: .semibold)
+        $0.layer.cornerCurve = .continuous
+        $0.layer.cornerRadius = DesignUX.buttonHeight / 2.0
+        $0.titleEdgeInsets = UIEdgeInsets(top: -DesignUX.paddingY,
+                                          left: -DesignUX.paddingX,
+                                          bottom: -DesignUX.paddingY,
+                                          right: -DesignUX.paddingX)
+        $0.contentEdgeInsets = UIEdgeInsets(top: DesignUX.paddingY,
+                                            left: DesignUX.paddingX,
+                                            bottom: DesignUX.paddingY,
+                                            right: DesignUX.paddingX)
+        $0.backgroundColor = .braveBlurple
+    }
+    
+    private lazy var disableButton = UIButton().then {
+        $0.setTitle(Strings.recentSearchDisableSuggestions, for: .normal)
+        $0.setTitleColor(.primaryButtonTint, for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 12.0, weight: .semibold)
+        $0.layer.cornerCurve = .continuous
+        $0.layer.cornerRadius = DesignUX.buttonHeight / 2.0
+        $0.layer.borderColor = UIColor.braveLabel.cgColor
+        $0.layer.borderWidth = 1.0
+        $0.titleEdgeInsets = UIEdgeInsets(top: -DesignUX.paddingY,
+                                          left: -DesignUX.paddingX,
+                                          bottom: -DesignUX.paddingY,
+                                          right: -DesignUX.paddingX)
+        $0.contentEdgeInsets = UIEdgeInsets(top: DesignUX.paddingY,
+                                            left: DesignUX.paddingX,
+                                            bottom: DesignUX.paddingY,
+                                            right: DesignUX.paddingX)
+        $0.backgroundColor = .clear
+    }
     
     private let optionSelected: (Bool) -> Void
     
@@ -82,24 +115,19 @@ class SearchSuggestionPromptView: UIView {
     
     // MARK: -
     
-    private func createButton(title: String) -> UIButton {
-        UIButton().then {
-            $0.setTitle(title, for: .normal)
-            $0.setTitleColor(.braveBackground, for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 12.0, weight: .semibold)
-            $0.layer.cornerCurve = .continuous
-            $0.layer.cornerRadius = DesignUX.buttonHeight / 2.0
-            $0.titleEdgeInsets = UIEdgeInsets(top: -DesignUX.paddingY, left: -DesignUX.paddingX, bottom: -DesignUX.paddingY, right: -DesignUX.paddingX)
-            $0.contentEdgeInsets = UIEdgeInsets(top: DesignUX.paddingY, left: DesignUX.paddingX, bottom: DesignUX.paddingY, right: DesignUX.paddingX)
-            $0.backgroundColor = .braveBlurple
-        }
-    }
-    
     @objc private func didClickOptInSuggestionsYes() {
         optionSelected(true)
     }
     
     @objc private func didClickOptInSuggestionsNo() {
         optionSelected(false)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        traitCollection.performAsCurrent {
+            self.disableButton.layer.borderColor = UIColor.braveLabel.cgColor
+        }
     }
 }
