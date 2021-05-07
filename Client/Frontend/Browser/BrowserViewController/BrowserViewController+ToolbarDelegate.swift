@@ -316,9 +316,34 @@ extension BrowserViewController: TopToolbarDelegate {
     
     private func displayFavoritesController() {
         if favoritesController == nil {
-            let favoritesController = FavoritesViewController { [weak self] bookmark, action in
+            let favoritesController = FavoritesViewController(action: { [weak self] bookmark, action in
                 self?.handleFavoriteAction(favorite: bookmark, action: action)
-            }
+            }, recentSearchAction: { [weak self] recentSearch in
+                guard let self = self else { return }
+                
+                if let recentSearch = recentSearch,
+                   let searchType = RecentSearchType(rawValue: recentSearch.searchType) {
+                    switch searchType {
+                    case .text:
+                        if let text = recentSearch.text {
+                            self.topToolbar.setLocation(text, search: false)
+                            self.topToolbar(self.topToolbar, didEnterText: text)
+                        }
+                    case .qrCode:
+                        break
+                    case .website:
+                        if let websiteUrl = recentSearch.websiteUrl {
+                            self.topToolbar.setLocation(websiteUrl, search: false)
+                            self.topToolbar(self.topToolbar, didEnterText: websiteUrl)
+                        }
+                    }
+                } else if UIPasteboard.general.hasStrings || UIPasteboard.general.hasURLs,
+                          let searchQuery = UIPasteboard.general.string ?? UIPasteboard.general.url?.absoluteString {
+                    self.topToolbar.setLocation(searchQuery, search: false)
+                    self.topToolbar(self.topToolbar, didEnterText: searchQuery)
+                }
+            })
+            favoritesController.applyTheme(Theme.of(tabManager.selectedTab))
             self.favoritesController = favoritesController
             
             addChild(favoritesController)

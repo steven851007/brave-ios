@@ -21,7 +21,7 @@ class RecentSearchCell: UICollectionViewCell {
     }
     
     private let openButton = UIButton().then {
-        $0.setImage(#imageLiteral(resourceName: "vpn_checkmark_popup"), for: .normal)
+        $0.setImage(#imageLiteral(resourceName: "recent-search-arrow"), for: .normal)
         $0.setContentHuggingPriority(.required, for: .horizontal)
         $0.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
@@ -35,10 +35,6 @@ class RecentSearchCell: UICollectionViewCell {
         
         stackView.snp.makeConstraints {
             $0.edges.equalToSuperview()
-        }
-        
-        openButton.snp.makeConstraints {
-            $0.width.height.equalTo(44.0)
         }
     }
     

@@ -67,6 +67,21 @@ final public class RecentSearch: NSManagedObject, CRUD {
         RecentSearch.deleteAll(predicate: NSPredicate(format: "text == %@", text), context: .new(inMemory: false), includesPropertyValues: false)
     }
     
+    public static func removeAll() {
+        RecentSearch.deleteAll()
+    }
+    
+    public static func totalCount() -> Int {
+        let request = getFetchRequest()
+        
+        do {
+            return try DataController.viewContext.count(for: request)
+        } catch {
+            log.error("Count error: \(error)")
+        }
+        return 0
+    }
+    
     // MARK: - Internal
     private static func reorderItems(context: NSManagedObjectContext) {
         DataController.perform(context: .existing(context), save: true) { context in

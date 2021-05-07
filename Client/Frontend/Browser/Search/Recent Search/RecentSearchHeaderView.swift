@@ -1,0 +1,174 @@
+// Copyright 2021 The Brave Authors. All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+import Foundation
+import UIKit
+import BraveUI
+import Shared
+
+class RecentSearchHeaderView: UICollectionReusableView {
+    private var showRecentSearches = false
+    
+    private let titleLabel = UILabel().then {
+        $0.text = Strings.recentSearchSectionTitle
+        $0.font = .systemFont(ofSize: 17.0, weight: .semibold)
+        $0.appearanceTextColor = Colors.neutral700
+    }
+    
+    private let subtitleLabel = UILabel().then {
+        $0.text = Strings.recentSearchSectionDescription
+        $0.font = .systemFont(ofSize: 13.0)
+        $0.appearanceTextColor = Colors.neutral700
+        $0.numberOfLines = 0
+    }
+    
+    let showButton = UIButton()
+    let hideClearButton = UIButton()
+    
+    private let vStackView = UIStackView().then {
+        $0.axis = .vertical
+    }
+    
+    private let hStackView = UIStackView().then {
+        $0.spacing = 9.0
+    }
+    
+    private let hButtonStackView = UIStackView().then {
+        $0.spacing = 9.0
+        $0.setContentHuggingPriority(.required, for: .horizontal)
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        addSubview(vStackView)
+        vStackView.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(12.0)
+            $0.trailing.equalToSuperview().inset(12.0)
+            $0.top.bottom.equalToSuperview()
+        }
+        
+        resetLayout(showRecentSearches: showRecentSearches)
+    }
+    
+    @available(*, unavailable)
+    required init(coder: NSCoder) {
+        fatalError()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if !showRecentSearches {
+            showButton.do {
+                $0.layer.cornerRadius = $0.bounds.height / 2.0
+            }
+            
+            hideClearButton.do {
+                $0.layer.cornerRadius = $0.bounds.height / 2.0
+            }
+        }
+    }
+    
+    func resetLayout(showRecentSearches: Bool) {
+        self.showRecentSearches = showRecentSearches
+        themeViews()
+        doLayout()
+    }
+    
+    private func doLayout() {
+        vStackView.arrangedSubviews.forEach({ $0.removeFromSuperview() })
+        hStackView.arrangedSubviews.forEach({ $0.removeFromSuperview() })
+        
+        let spacer = UIView().then {
+            $0.setContentHuggingPriority(.defaultLow, for: .horizontal)
+            $0.setContentCompressionResistancePriority(.required, for: .horizontal)
+        }
+        
+        if showRecentSearches {
+            vStackView.addArrangedSubview(hStackView)
+            
+            [titleLabel, spacer, showButton, hideClearButton].forEach({
+                self.hStackView.addArrangedSubview($0)
+            })
+        } else {
+            [titleLabel, subtitleLabel, hStackView].forEach({
+                self.vStackView.addArrangedSubview($0)
+            })
+            
+            vStackView.setCustomSpacing(22.0, after: subtitleLabel)
+            
+            [showButton, hideClearButton, spacer].forEach({
+                self.hStackView.addArrangedSubview($0)
+            })
+        }
+        
+        showButton.snp.makeConstraints {
+            $0.width.equalTo(hideClearButton)
+            $0.height.lessThanOrEqualTo(40.0)
+        }
+        
+        hideClearButton.snp.makeConstraints {
+            $0.width.equalTo(showButton)
+            $0.height.lessThanOrEqualTo(40.0)
+        }
+    }
+    
+    private func themeViews() {
+        let paddingX: CGFloat = 15.0
+        let paddingY: CGFloat = 10.0
+        
+        if showRecentSearches {
+            showButton.do {
+                $0.setTitle(Strings.recentShowMore, for: .normal)
+                $0.appearanceTextColor = Colors.blurple500
+                $0.titleLabel?.font = .systemFont(ofSize: 12.0)
+                $0.layer.cornerRadius = 0.0
+                $0.layer.borderColor = nil
+                $0.layer.borderWidth = 0.0
+                $0.titleEdgeInsets = .zero
+                $0.contentEdgeInsets = .zero
+                $0.appearanceBackgroundColor = .clear
+            }
+            
+            hideClearButton.do {
+                $0.setTitle(Strings.recentSearchClear, for: .normal)
+                $0.appearanceTextColor = Colors.blurple500
+                $0.titleLabel?.font = .systemFont(ofSize: 12.0)
+                $0.layer.cornerRadius = 0.0
+                $0.layer.borderColor = nil
+                $0.layer.borderWidth = 0.0
+                $0.titleEdgeInsets = .zero
+                $0.contentEdgeInsets = .zero
+                $0.appearanceBackgroundColor = .clear
+            }
+        } else {
+            showButton.do {
+                $0.setTitle(Strings.recentSearchShow, for: .normal)
+                $0.appearanceTextColor = .white
+                $0.titleLabel?.font = .systemFont(ofSize: 12.0, weight: .semibold)
+                $0.layer.cornerCurve = .continuous
+                $0.layer.cornerRadius = $0.bounds.height / 2.0
+                $0.layer.borderColor = nil
+                $0.layer.borderWidth = 0.0
+                $0.titleEdgeInsets = UIEdgeInsets(top: -paddingY, left: -paddingX, bottom: -paddingY, right: -paddingX)
+                $0.contentEdgeInsets = UIEdgeInsets(top: paddingY, left: paddingX, bottom: paddingY, right: paddingX)
+                $0.appearanceBackgroundColor = Colors.blurple500
+            }
+            
+            hideClearButton.do {
+                $0.setTitle(Strings.recentSearchHide, for: .normal)
+                $0.appearanceTextColor = .black
+                $0.titleLabel?.font = .systemFont(ofSize: 12.0, weight: .semibold)
+                $0.layer.cornerCurve = .continuous
+                $0.layer.cornerRadius = $0.bounds.height / 2.0
+                $0.layer.borderColor = Colors.neutral700.cgColor
+                $0.layer.borderWidth = 1.0
+                $0.titleEdgeInsets = UIEdgeInsets(top: -paddingY, left: -paddingX, bottom: -paddingY, right: -paddingX)
+                $0.contentEdgeInsets = UIEdgeInsets(top: paddingY, left: paddingX, bottom: paddingY, right: paddingX)
+                $0.appearanceBackgroundColor = .clear
+            }
+        }
+    }
+}
