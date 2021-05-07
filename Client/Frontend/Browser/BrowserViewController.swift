@@ -1934,11 +1934,17 @@ extension BrowserViewController: QRCodeViewControllerDelegate {
     func didScanQRCodeWithURL(_ url: URL) {
         openBlankNewTab(attemptLocationFieldFocus: false)
         finishEditingAndSubmit(url, visitType: VisitType.typed)
+        
+        if !url.isBookmarklet {
+            RecentSearch.addItem(type: .qrCode, text: nil, websiteUrl: url.absoluteString)
+        }
     }
 
     func didScanQRCodeWithText(_ text: String) {
         openBlankNewTab(attemptLocationFieldFocus: false)
         submitSearchText(text)
+        
+        RecentSearch.addItem(type: .qrCode, text: text, websiteUrl: nil)
     }
 }
 

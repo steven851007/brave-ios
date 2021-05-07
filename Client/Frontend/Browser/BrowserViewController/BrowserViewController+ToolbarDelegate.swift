@@ -171,12 +171,11 @@ extension BrowserViewController: TopToolbarDelegate {
 
         // We couldn't build a URL, so pass it on to the search engine.
         submitSearchText(text)
+        RecentSearch.addItem(type: .text, text: text, websiteUrl: nil)
     }
 
     func submitSearchText(_ text: String) {
         let engine = profile.searchEngines.defaultEngine()
-        
-        RecentSearch.addItem(type: .text, text: text, websiteUrl: nil)
 
         if let searchURL = engine.searchURLForQuery(text) {
             // We couldn't find a matching search keyword, so do a search query.
@@ -275,6 +274,14 @@ extension BrowserViewController: TopToolbarDelegate {
         tabToolbarDidPressMenu(topToolbar)
     }
     
+    func topToolbarDidPressQrCodeButton(_ urlBar: TopToolbarView) {
+        hideFavoritesController()
+        
+        let qrCodeController = QRCodeViewController()
+        qrCodeController.qrCodeDelegate = self
+        self.present(qrCodeController, animated: true, completion: nil)
+    }
+    
     private func hideSearchController() {
         if let searchController = searchController {
             searchController.willMove(toParent: nil)
@@ -330,7 +337,13 @@ extension BrowserViewController: TopToolbarDelegate {
                             self.topToolbar(self.topToolbar, didEnterText: text)
                         }
                     case .qrCode:
-                        break
+                        if let text = recentSearch.text {
+                            self.topToolbar.setLocation(text, search: false)
+                            self.topToolbar(self.topToolbar, didEnterText: text)
+                        } else if let websiteUrl = recentSearch.websiteUrl {
+                            self.topToolbar.setLocation(websiteUrl, search: false)
+                            self.topToolbar(self.topToolbar, didEnterText: websiteUrl)
+                        }
                     case .website:
                         if let websiteUrl = recentSearch.websiteUrl {
                             self.topToolbar.setLocation(websiteUrl, search: false)

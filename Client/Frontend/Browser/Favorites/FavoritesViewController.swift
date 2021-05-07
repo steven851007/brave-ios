@@ -372,14 +372,12 @@ extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewD
             case .text:
                 cell.setTitle(recentSearch.text)
             case .qrCode:
-                if let text = recentSearch.text {
-                    let title = NSMutableAttributedString(string: "Scanned ",
+                if let text = recentSearch.text ?? recentSearch.websiteUrl {
+                    let title = NSMutableAttributedString(string: "\(Strings.recentSearchScanned) ",
                                                           attributes: [.font: UIFont.systemFont(ofSize: 15.0, weight: .semibold)])
                     title.append(NSAttributedString(string: "\"\(text)\"",
                                                     attributes: [.font: UIFont.systemFont(ofSize: 15.0)]))
                     cell.setAttributedTitle(title)
-                } else {
-                    cell.setTitle(recentSearch.text)
                 }
             case .website:
                 if let text = recentSearch.text,
@@ -388,7 +386,7 @@ extension FavoritesViewController: UICollectionViewDataSource, UICollectionViewD
                     
                     let title = NSMutableAttributedString(string: text,
                                                           attributes: [.font: UIFont.systemFont(ofSize: 15.0)])
-                    title.append(NSAttributedString(string: " on ",
+                    title.append(NSAttributedString(string: " \(Strings.recentSearchQuickSearchOnWebsite) ",
                                                     attributes: [.font: UIFont.systemFont(ofSize: 15.0, weight: .semibold)]))
                     title.append(NSAttributedString(string: website,
                                                     attributes: [.font: UIFont.systemFont(ofSize: 15.0)]))
