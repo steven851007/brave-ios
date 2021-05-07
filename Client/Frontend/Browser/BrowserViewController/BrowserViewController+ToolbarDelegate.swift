@@ -8,6 +8,7 @@ import BraveUI
 import Shared
 import BraveRewards
 import Storage
+import Data
 import SwiftUI
 
 // MARK: - TopToolbarDelegate
@@ -174,6 +175,8 @@ extension BrowserViewController: TopToolbarDelegate {
 
     func submitSearchText(_ text: String) {
         let engine = profile.searchEngines.defaultEngine()
+        
+        RecentSearch.addItem(type: .text, text: text, websiteUrl: nil)
 
         if let searchURL = engine.searchURLForQuery(text) {
             // We couldn't find a matching search keyword, so do a search query.
