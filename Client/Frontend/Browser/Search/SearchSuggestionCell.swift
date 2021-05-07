@@ -10,6 +10,8 @@ import BraveUI
 class SuggestionCell: UITableViewCell {
     static let identifier = "SuggestionCell"
     
+    var openButtonActionHandler: (() -> Void)?
+    
     private let stackView = UIStackView().then {
         $0.spacing = 20.0
         $0.isLayoutMarginsRelativeArrangement = true
@@ -39,6 +41,8 @@ class SuggestionCell: UITableViewCell {
         stackView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        
+        openButton.addTarget(self, action: #selector(onOpenButtonPressed), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -47,5 +51,10 @@ class SuggestionCell: UITableViewCell {
     
     func setTitle(_ title: String) {
         titleLabel.text = title
+    }
+    
+    @objc
+    private func onOpenButtonPressed() {
+        openButtonActionHandler?()
     }
 }

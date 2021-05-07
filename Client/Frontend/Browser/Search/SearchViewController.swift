@@ -421,7 +421,9 @@ class SearchViewController: SiteTableViewController, LoaderListener {
             return
         }
 
-        RecentSearch.addItem(type: .website, text: searchQuery, websiteUrl: url.absoluteString)
+        if !PrivateBrowsingManager.shared.isPrivateBrowsing {
+            RecentSearch.addItem(type: .website, text: searchQuery, websiteUrl: url.absoluteString)
+        }
         searchDelegate?.searchViewController(self, didSelectURL: url)
     }
 
@@ -522,6 +524,12 @@ class SearchViewController: SiteTableViewController, LoaderListener {
             if let suggestionCell = cell as? SuggestionCell {
                 suggestionCell.setTitle(suggestions[indexPath.row])
                 suggestionCell.separatorInset = UIEdgeInsets(top: 0.0, left: view.bounds.width, bottom: 0.0, right: -view.bounds.width)
+                suggestionCell.openButtonActionHandler = { [weak self] in
+                    guard let self = self else { return }
+                    
+                    let suggestion = self.suggestions[indexPath.row]
+                    self.searchDelegate?.searchViewController(self, didLongPressSuggestion: suggestion)
+                }
             }
             return cell
 

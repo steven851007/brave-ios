@@ -1935,7 +1935,7 @@ extension BrowserViewController: QRCodeViewControllerDelegate {
         openBlankNewTab(attemptLocationFieldFocus: false)
         finishEditingAndSubmit(url, visitType: VisitType.typed)
         
-        if !url.isBookmarklet {
+        if !url.isBookmarklet && !PrivateBrowsingManager.shared.isPrivateBrowsing {
             RecentSearch.addItem(type: .qrCode, text: nil, websiteUrl: url.absoluteString)
         }
     }
@@ -1944,7 +1944,9 @@ extension BrowserViewController: QRCodeViewControllerDelegate {
         openBlankNewTab(attemptLocationFieldFocus: false)
         submitSearchText(text)
         
-        RecentSearch.addItem(type: .qrCode, text: text, websiteUrl: nil)
+        if !PrivateBrowsingManager.shared.isPrivateBrowsing {
+            RecentSearch.addItem(type: .qrCode, text: text, websiteUrl: nil)
+        }
     }
 }
 

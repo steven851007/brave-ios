@@ -171,7 +171,10 @@ extension BrowserViewController: TopToolbarDelegate {
 
         // We couldn't build a URL, so pass it on to the search engine.
         submitSearchText(text)
-        RecentSearch.addItem(type: .text, text: text, websiteUrl: nil)
+        
+        if !PrivateBrowsingManager.shared.isPrivateBrowsing {
+            RecentSearch.addItem(type: .text, text: text, websiteUrl: nil)
+        }
     }
 
     func submitSearchText(_ text: String) {
