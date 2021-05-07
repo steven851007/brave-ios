@@ -20,11 +20,9 @@ class RecentSearchClipboardHeaderView: UICollectionReusableView {
         $0.contentHorizontalAlignment = .left
         $0.imageView?.contentMode = .scaleAspectFit
         $0.setTitle(Strings.recentSearchPasteAndGo, for: .normal)
-        $0.setTitleColor(.black, for: .normal)
-        $0.setTitleColor(Colors.grey500, for: .highlighted)
-        $0.titleLabel?.appearanceTextColor = .black
+        $0.setTitleColor(.primaryButtonTint, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 13.0, weight: .semibold)
-        $0.layer.borderColor = Colors.grey500.cgColor
+        $0.layer.borderColor = UIColor.secondaryButtonTint.cgColor
         $0.layer.borderWidth = 1.0
         $0.layer.cornerCurve = .continuous
     }
@@ -49,6 +47,14 @@ class RecentSearchClipboardHeaderView: UICollectionReusableView {
         
         button.do {
             $0.layer.cornerRadius = $0.bounds.height / 2.0
+        }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        traitCollection.performAsCurrent {
+            button.layer.borderColor = UIColor.secondaryButtonTint.cgColor
         }
     }
 }

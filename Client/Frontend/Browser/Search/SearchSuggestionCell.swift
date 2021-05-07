@@ -18,7 +18,7 @@ class SuggestionCell: UITableViewCell {
     
     private let titleLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 15.0)
-        $0.appearanceTextColor = .black
+        $0.textColor = .bravePrimary
     }
     
     private let openButton = UIButton().then {

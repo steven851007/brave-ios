@@ -356,7 +356,6 @@ extension BrowserViewController: TopToolbarDelegate {
                     self.topToolbar(self.topToolbar, didEnterText: searchQuery)
                 }
             })
-            favoritesController.applyTheme(Theme.of(tabManager.selectedTab))
             self.favoritesController = favoritesController
             
             addChild(favoritesController)

@@ -487,7 +487,7 @@ class SearchViewController: SiteTableViewController, LoaderListener {
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let headerView = view as? UITableViewHeaderFooterView {
-            headerView.textLabel?.appearanceTextColor = .black
+            headerView.textLabel?.textColor = .bravePrimary
         }
     }
 
@@ -530,7 +530,7 @@ class SearchViewController: SiteTableViewController, LoaderListener {
             let site = data[indexPath.row]
             if let cell = cell as? TwoLineTableViewCell {
                 let isBookmark = site.bookmarked ?? false
-                cell.textLabel?.appearanceTextColor = .black
+                cell.textLabel?.textColor = .bravePrimary
                 cell.setLines(site.title, detailText: site.url)
                 cell.setRightBadge(isBookmark ? self.bookmarkedBadge : nil)
                 cell.imageView?.contentMode = .scaleAspectFit
@@ -544,7 +544,7 @@ class SearchViewController: SiteTableViewController, LoaderListener {
         case .findInPage:
             let cell = TwoLineTableViewCell()
             cell.textLabel?.text = String(format: Strings.findInPageFormat, searchQuery)
-            cell.textLabel?.appearanceTextColor = .black
+            cell.textLabel?.textColor = .bravePrimary
             cell.imageView?.image = #imageLiteral(resourceName: "search_bar_find_in_page_icon")
             cell.imageView?.contentMode = .center
             return cell

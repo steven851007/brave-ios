@@ -12,7 +12,8 @@ class SearchSuggestionPromptView: UIView {
     struct DesignUX {
         static let paddingX: CGFloat = 15.0
         static let paddingY: CGFloat = 10.0
-        static let layoutInset: CGFloat = 15.0
+        static let layoutInsetX: CGFloat = 12.0
+        static let layoutInsetY: CGFloat = 15.0
         static let buttonHeight: CGFloat = 40.0
     }
     
@@ -41,7 +42,8 @@ class SearchSuggestionPromptView: UIView {
         
         addSubview(vStackView)
         vStackView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(DesignUX.layoutInset)
+            $0.leading.trailing.equalToSuperview().inset(DesignUX.layoutInsetX)
+            $0.top.bottom.equalToSuperview().inset(DesignUX.layoutInsetY)
         }
         
         let spacer = UIView().then {
@@ -81,13 +83,13 @@ class SearchSuggestionPromptView: UIView {
     private func createButton(title: String) -> UIButton {
         UIButton().then {
             $0.setTitle(title, for: .normal)
-            $0.appearanceTextColor = .white
+            $0.setTitleColor(.braveBackground, for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 12.0, weight: .semibold)
             $0.layer.cornerCurve = .continuous
             $0.layer.cornerRadius = DesignUX.buttonHeight / 2.0
             $0.titleEdgeInsets = UIEdgeInsets(top: -DesignUX.paddingY, left: -DesignUX.paddingX, bottom: -DesignUX.paddingY, right: -DesignUX.paddingX)
             $0.contentEdgeInsets = UIEdgeInsets(top: DesignUX.paddingY, left: DesignUX.paddingX, bottom: DesignUX.paddingY, right: DesignUX.paddingX)
-            $0.appearanceBackgroundColor = Colors.blurple500
+            $0.backgroundColor = .braveBlurple
         }
     }
     

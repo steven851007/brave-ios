@@ -14,13 +14,13 @@ class RecentSearchHeaderView: UICollectionReusableView {
     private let titleLabel = UILabel().then {
         $0.text = Strings.recentSearchSectionTitle
         $0.font = .systemFont(ofSize: 17.0, weight: .semibold)
-        $0.appearanceTextColor = Colors.neutral700
+        $0.textColor = .braveLabel
     }
     
     private let subtitleLabel = UILabel().then {
         $0.text = Strings.recentSearchSectionDescription
         $0.font = .systemFont(ofSize: 13.0)
-        $0.appearanceTextColor = Colors.neutral700
+        $0.textColor = .braveLabel
         $0.numberOfLines = 0
     }
     
@@ -122,31 +122,31 @@ class RecentSearchHeaderView: UICollectionReusableView {
         if showRecentSearches {
             showButton.do {
                 $0.setTitle(Strings.recentShowMore, for: .normal)
-                $0.appearanceTextColor = Colors.blurple500
+                $0.setTitleColor(.braveBlurple, for: .normal)
                 $0.titleLabel?.font = .systemFont(ofSize: 12.0)
                 $0.layer.cornerRadius = 0.0
                 $0.layer.borderColor = nil
                 $0.layer.borderWidth = 0.0
                 $0.titleEdgeInsets = .zero
                 $0.contentEdgeInsets = .zero
-                $0.appearanceBackgroundColor = .clear
+                $0.backgroundColor = .clear
             }
             
             hideClearButton.do {
                 $0.setTitle(Strings.recentSearchClear, for: .normal)
-                $0.appearanceTextColor = Colors.blurple500
+                $0.setTitleColor(.braveBlurple, for: .normal)
                 $0.titleLabel?.font = .systemFont(ofSize: 12.0)
                 $0.layer.cornerRadius = 0.0
                 $0.layer.borderColor = nil
                 $0.layer.borderWidth = 0.0
                 $0.titleEdgeInsets = .zero
                 $0.contentEdgeInsets = .zero
-                $0.appearanceBackgroundColor = .clear
+                $0.backgroundColor = .clear
             }
         } else {
             showButton.do {
                 $0.setTitle(Strings.recentSearchShow, for: .normal)
-                $0.appearanceTextColor = .white
+                $0.setTitleColor(.braveBackground, for: .normal)
                 $0.titleLabel?.font = .systemFont(ofSize: 12.0, weight: .semibold)
                 $0.layer.cornerCurve = .continuous
                 $0.layer.cornerRadius = $0.bounds.height / 2.0
@@ -154,21 +154,27 @@ class RecentSearchHeaderView: UICollectionReusableView {
                 $0.layer.borderWidth = 0.0
                 $0.titleEdgeInsets = UIEdgeInsets(top: -paddingY, left: -paddingX, bottom: -paddingY, right: -paddingX)
                 $0.contentEdgeInsets = UIEdgeInsets(top: paddingY, left: paddingX, bottom: paddingY, right: paddingX)
-                $0.appearanceBackgroundColor = Colors.blurple500
+                $0.backgroundColor = .braveBlurple
             }
             
             hideClearButton.do {
                 $0.setTitle(Strings.recentSearchHide, for: .normal)
-                $0.appearanceTextColor = .black
+                $0.setTitleColor(.primaryButtonTint, for: .normal)
                 $0.titleLabel?.font = .systemFont(ofSize: 12.0, weight: .semibold)
                 $0.layer.cornerCurve = .continuous
                 $0.layer.cornerRadius = $0.bounds.height / 2.0
-                $0.layer.borderColor = Colors.neutral700.cgColor
+                $0.layer.borderColor = UIColor.braveLabel.cgColor
                 $0.layer.borderWidth = 1.0
                 $0.titleEdgeInsets = UIEdgeInsets(top: -paddingY, left: -paddingX, bottom: -paddingY, right: -paddingX)
                 $0.contentEdgeInsets = UIEdgeInsets(top: paddingY, left: paddingX, bottom: paddingY, right: paddingX)
-                $0.appearanceBackgroundColor = .clear
+                $0.backgroundColor = .clear
             }
         }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        themeViews()
     }
 }

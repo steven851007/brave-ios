@@ -98,13 +98,6 @@
         <attribute name="pageSrc" attributeType="String"/>
         <attribute name="pageTitle" optional="YES" attributeType="String"/>
     </entity>
-    <entity name="RecentSearch" representedClassName=".RecentSearch" syncable="YES">
-        <attribute name="dateAdded" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="order" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="searchType" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="text" optional="YES" attributeType="String"/>
-        <attribute name="websiteUrl" optional="YES" attributeType="String"/>
-    </entity>
     <entity name="RSSFeedSource" representedClassName=".RSSFeedSource" syncable="YES">
         <attribute name="feedUrl" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
@@ -136,7 +129,6 @@
         <element name="FeedSourceOverride" positionX="-279" positionY="-297" width="128" height="28"/>
         <element name="History" positionX="493" positionY="-150" width="128" height="135"/>
         <element name="PlaylistItem" positionX="-279" positionY="-297" width="128" height="178"/>
-        <element name="RecentSearch" positionX="-288" positionY="-297" width="128" height="104"/>
         <element name="RSSFeedSource" positionX="-270" positionY="-288" width="128" height="73"/>
         <element name="TabMO" positionX="-488" positionY="-229" width="128" height="210"/>
     </elements>
