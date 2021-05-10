@@ -7,7 +7,9 @@ import Shared
 import BraveShared
 import BraveUI
 
-class SearchSuggestionPromptView: UIView {
+class SearchSuggestionPromptCell: UITableViewCell {
+    
+    static let identifier = "SearchSuggestionPromptCell"
     
     struct DesignUX {
         static let paddingX: CGFloat = 15.0
@@ -66,16 +68,13 @@ class SearchSuggestionPromptView: UIView {
                                             right: DesignUX.paddingX)
         $0.backgroundColor = .clear
     }
-    
-    private let optionSelected: (Bool) -> Void
-    
-    init(optionSelected: @escaping (Bool) -> Void) {
-        self.optionSelected = optionSelected
-        super.init(frame: .zero)
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         backgroundColor = .secondaryBraveBackground
         
-        addSubview(vStackView)
+        contentView.addSubview(vStackView)
         vStackView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(DesignUX.layoutInsetX)
             $0.top.bottom.equalToSuperview().inset(DesignUX.layoutInsetY)
@@ -115,12 +114,14 @@ class SearchSuggestionPromptView: UIView {
     
     // MARK: -
     
+    var onOptionSelected: ((Bool) -> Void)?
+    
     @objc private func didClickOptInSuggestionsYes() {
-        optionSelected(true)
+        onOptionSelected?(true)
     }
     
     @objc private func didClickOptInSuggestionsNo() {
-        optionSelected(false)
+        onOptionSelected?(false)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
