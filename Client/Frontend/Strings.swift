@@ -228,4 +228,5 @@ extension Strings {
     public static let recentSearchSuggestionsTitle = NSLocalizedString("RecentSearchSuggestionsTitle", bundle: Bundle.shared, value: "Search Suggestions", comment: "Recent Search suggestions title when prompting to turn on suggestions")
     public static let recentSearchEnableSuggestions = NSLocalizedString("RecentSearchEnableSuggestions", bundle: Bundle.shared, value: "Enable", comment: "Recent Search button title to enable suggestions")
     public static let recentSearchDisableSuggestions = NSLocalizedString("RecentSearchDisableSuggestions", bundle: Bundle.shared, value: "Disable", comment: "Recent Search button title to disable suggestions")
+    public static let recentSearchClearDataToggleOption = NSLocalizedString("RecentSearchClearDataToggleOption", bundle: Bundle.shared, value: "Recent Search Data", comment: "Recent Search setting title to clear recent searches")
 }
